@@ -12,13 +12,5 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-
-add_subdirectory(cafe)
-add_subdirectory(cheapest-way)
-add_subdirectory(knight-move)
-add_subdirectory(median-out-of-three)
-add_subdirectory(print-the-route-of-the-maximum-cost)
-add_subdirectory(nop-with-response-recovery)
-
-
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT cafe)
+add_executable(${ProjectId} main.cpp)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${ProjectId})
