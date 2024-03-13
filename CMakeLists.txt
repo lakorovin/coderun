@@ -21,6 +21,7 @@ add_subdirectory(print-the-route-of-the-maximum-cost)
 add_subdirectory(nop-with-response-recovery)
 add_subdirectory(search-in-depth)
 add_subdirectory(connectivity-components)
+add_subdirectory(cheating)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT cafe)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT cheating)
