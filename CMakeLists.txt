@@ -25,6 +25,7 @@ add_subdirectory(cheating)
 add_subdirectory(topological-sorting)
 add_subdirectory(cycle-search)
 add_subdirectory(shortest-path-length)
+add_subdirectory(the-path-in-the-graph)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT shortest-path-length)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT the-path-in-the-graph)
