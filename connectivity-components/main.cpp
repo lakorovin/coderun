@@ -28,58 +28,42 @@ struct Graph {
     }
 };
 
-void dfs_rec(const Graph& g, int id, std::vector<int>& visited) {
+void dfs_rec(const Graph& g, int id, std::vector<int>& visited, std::set<int>& clik) {
     if (visited[id]) {
         return;
     }
     visited[id] = 1;
+    clik.insert(id + 1);
     for (int el : g.edges(id)) {
-        dfs_rec(g, el, visited);
+        dfs_rec(g, el, visited, clik);
     }
 }
 
-std::set<int> dfs(const Graph& g, int id) {
+std::vector< std::set<int> > dfs(const Graph& g) {
     std::vector<int> visited(g.size(), 0);
-    dfs_rec(g, id, visited);
-    std::set<int> clik;
-    for (int i = 0; i < visited.size(); ++i) {
-        if (visited[i]) {
-            clik.insert(i + 1);
+    std::vector< std::set<int> > ans;
+    for (int i = 0; i < g.size(); ++i) {
+        std::set<int> clik;
+        dfs_rec(g, i, visited, clik);
+        if (!clik.empty()) {
+            ans.push_back(std::move(clik));
         }
     }
-    return clik;
+    
+    return ans;
 }
 
-std::vector<int> dfs2(const Graph& g, int id) {
-    std::vector<int> visited(g.size(), 0);
-    dfs_rec(g, id, visited);
-    return visited;
-}
-
-void print_res(const std::set<int>& x) {
+void print_res(const std::vector< std::set<int> >& x) {
     std::cout << x.size() << std::endl;
-    for (int el : x) {
-        std::cout << el << " ";
-    }
-    std::cout << std::endl;
-}
 
-void print_res2(const std::vector<int>& x) {
-    int sum = 0;
-    for (int el : x) {
-        sum += el;
-    }
-    std::cout << sum << std::endl;
-    int i = 0;
-    for (int el : x) {
-        ++i;
-        if (el) {
-            std::cout << i << " ";
+    for (const auto& click : x) {
+        std::cout << click.size() << std::endl;
+        for (auto el : click) {
+            std::cout << el << " ";
         }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
 }
-
 
 int main()
 {
@@ -92,6 +76,6 @@ int main()
         g.add(x, y);
 
     }
-    print_res2(dfs2(g, 0));
+    print_res(dfs(g));
     return 0;
 }
