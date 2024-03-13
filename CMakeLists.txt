@@ -22,6 +22,8 @@ add_subdirectory(nop-with-response-recovery)
 add_subdirectory(search-in-depth)
 add_subdirectory(connectivity-components)
 add_subdirectory(cheating)
+add_subdirectory(topological-sorting)
+add_subdirectory(cycle-search)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT cheating)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT cycle-search)
