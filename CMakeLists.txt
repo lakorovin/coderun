@@ -26,6 +26,7 @@ add_subdirectory(topological-sorting)
 add_subdirectory(cycle-search)
 add_subdirectory(shortest-path-length)
 add_subdirectory(the-path-in-the-graph)
+add_subdirectory(fleas)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT the-path-in-the-graph)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT fleas)
