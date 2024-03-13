@@ -24,6 +24,7 @@ add_subdirectory(connectivity-components)
 add_subdirectory(cheating)
 add_subdirectory(topological-sorting)
 add_subdirectory(cycle-search)
+add_subdirectory(shortest-path-length)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT cycle-search)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT shortest-path-length)
