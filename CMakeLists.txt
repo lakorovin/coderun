@@ -28,6 +28,7 @@ add_subdirectory(shortest-path-length)
 add_subdirectory(the-path-in-the-graph)
 add_subdirectory(fleas)
 add_subdirectory(speleologist-way)
+add_subdirectory(metro-2)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT speleologist-way)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT metro-2)
