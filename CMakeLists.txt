@@ -32,6 +32,7 @@ add_subdirectory(metro-2)
 add_subdirectory(card-counter)
 add_subdirectory(status-200)
 add_subdirectory(matrix-resurrection)
+add_subdirectory(rome)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT matrix-resurrection)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT rome)
