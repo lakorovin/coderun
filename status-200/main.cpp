@@ -6,14 +6,11 @@
 using namespace std;
 
 long long pairs(long long  el) {
-    if (el < 2) {
-        return 0l;
-    }
     return el * (el - 1) / 2;
 }
 
 long long getNumberOfGoodPairs(int /*n*/, const vector<int>& numbers) {
-    vector<long long> module(200, 0);
+    vector<int> module(200, 0);
     for (auto el : numbers) {
         ++module[el % 200];
     }
