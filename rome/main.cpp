@@ -1,5 +1,13 @@
 // https://contest.yandex.ru/contest/36783/problems/E/
 
+// IXIX выдает 18, хотя должен выдавать -1, тесты на контесте это не ловят
+// IXI тоже прокатывает
+// XLX прокатывает
+// MCCM - есть тест, -1
+// XLIX - есть тест, 49
+
+
+
 #include <iostream>
 #include <unordered_map>
 
@@ -49,6 +57,9 @@ int convertToArabic(const string& romanNumber) {
         if (currCost < 1) {
             return -1;
         }
+        if (currCost > prevMaxCost) {
+            return -1;
+        }
         update_count(counts, nonTree, c, prevChar);
         sum += currCost;
         if (i + 1 < n) {
@@ -61,11 +72,10 @@ int convertToArabic(const string& romanNumber) {
                 if (prevMaxCost < maxCost) {
                     return -1;
                 }
-                prevMaxCost = maxCost;
-                sum -= 2*currCost;
+                prevMaxCost = currCost - 1;
+                sum -= 2 * currCost;
                 sum += Costs[nextCh];
                 update_count(counts, nonTree, nextCh, c);
-                maxCost = std::min(maxCost, currCost - 1);
                 ++i;
             }
             else {
