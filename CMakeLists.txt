@@ -33,6 +33,7 @@ add_subdirectory(card-counter)
 add_subdirectory(status-200)
 add_subdirectory(matrix-resurrection)
 add_subdirectory(rome)
+add_subdirectory(good-string)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT rome)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT good-string)
