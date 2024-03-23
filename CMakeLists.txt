@@ -34,6 +34,7 @@ add_subdirectory(status-200)
 add_subdirectory(matrix-resurrection)
 add_subdirectory(rome)
 add_subdirectory(good-string)
+add_subdirectory(tree-path)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT good-string)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT tree-path)
