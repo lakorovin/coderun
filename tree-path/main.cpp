@@ -6,9 +6,6 @@
 
 using namespace std;
 
-const int UNDEFINED = -13175438;
-
-
 struct Vertex {
     int w;
     int p;
@@ -16,7 +13,8 @@ struct Vertex {
     Vertex(int _w, int _p) : w(_w), p(_p) {}
 };
 
-vector<vector<long>> createReverseTree(const vector<Vertex>& treeOrig) {
+std::pair<int, vector<vector<long>>> createReverseTree(const vector<Vertex>& treeOrig) {
+    int root = 0;
     int n = (int)treeOrig.size();
     vector<vector<long>> reverseTree(n);
 
@@ -25,12 +23,13 @@ vector<vector<long>> createReverseTree(const vector<Vertex>& treeOrig) {
 
         if (parent < 0)
         {
+            root = i;
             continue;
         }
         reverseTree[parent].push_back(i);
     }
 
-    return reverseTree;
+    return { root, reverseTree };
 }
 
 
@@ -62,71 +61,30 @@ long traverseTree(
     return count;
 }
 
-int root = 0;
+long getNumberOfUpgoingPaths(const vector<Vertex>& treeOrig, int x) {
+    auto [root, tree] = createReverseTree(treeOrig);
+    unordered_map<long, long> map;
+    map[0] = 1;
+    long sum_so_far = 0;
+    return traverseTree(tree, treeOrig, root, x, sum_so_far, map);
+}
 
-vector<Vertex> readTree(long n)
-{
+vector<Vertex> readTree(int n) {
     vector<Vertex> tree;
-
-    for (long i = 0; i < n; i++)
-    {
-        long parent, weight;
+    tree.reserve(n);
+    for (int i = 0; i < n; i++) {
+        int parent, weight;
         cin >> parent >> weight;
-        Vertex v(weight, parent);
-
-        if (parent < 0)
-        {
-            root = i;
-        }
-        tree.push_back(v);
+        tree.emplace_back(weight, parent);
     }
     return tree;
 }
 
-
-long long calcWeight(int ind, const vector<Vertex>& tree, vector<long long>& weight) {
-    if (ind < 0) {
-        return 0;
-    }
-    if (weight[ind] != UNDEFINED) {
-        return weight[ind];
-    }
-    Vertex v = tree[ind];
-    weight[ind] = v.w + calcWeight(v.p, tree, weight);
-    return weight[ind];
-}
-
-int getNumberOfUpgoingPaths(const vector<Vertex>& treeOrig, int x) {
-    long resVal = 0;
-
-    auto tree = createReverseTree(treeOrig);
-
-    unordered_map<long, long> map;
-    map[0] = 1;
-
-    resVal = traverseTree(tree, treeOrig, root, x, 0, map);
-
-    return resVal;
-
-}
-
-//vector<Vertex> readTree(int n) {
-//    vector<Vertex> tree;
-//    tree.reserve(n);
-//    for (int i = 0; i < n; i++) {
-//        int parent, weight;
-//        cin >> parent >> weight;
-//        tree.emplace_back(weight, parent);
-//    }
-//    return tree;
-//}
-
 int main() {
     int n;
     cin >> n;
-    int x;
+    long x;
     cin >> x;
     vector<Vertex> tree = readTree(n);
     cout << getNumberOfUpgoingPaths(tree, x);
-
 }
