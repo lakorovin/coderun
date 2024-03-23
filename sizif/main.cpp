@@ -3,19 +3,22 @@
 #include <vector>
 #include <iostream>
 #include <queue>
+#include <functional>
 
 using namespace std;
 
-long long getEnergyForUnion(vector<long long> stones) {
+long getEnergyForUnion(vector<long> stones) {
     if (stones.size() < 1) {
         return 0;
     }
-    std::priority_queue minq2(stones.begin(), stones.end(), std::greater<long long>());
-    long long work = 0;
+    // std::priority_queue<long> minq2(std::greater<long>(), std::move(stones));
+    std::priority_queue<long, std::vector<long>, std::greater<long>>
+        minq2(stones.begin(), stones.end());
+    long work = 0;
     while (minq2.size() > 1) {
-        long long l1 = minq2.top();
+        long l1 = minq2.top();
         minq2.pop();
-        long long l2 = minq2.top();
+        long l2 = minq2.top();
         work += l1 + l2;
         minq2.pop();
         minq2.push(l2 + l1);
@@ -23,8 +26,8 @@ long long getEnergyForUnion(vector<long long> stones) {
     return work;
 }
 
-vector<long long> readList(int n) {
-    vector<long long> res(n);
+vector<long> readList(int n) {
+    vector<long> res(n);
     for (int i = 0; i < n; i++) {
         cin >> res[i];
     }
@@ -34,6 +37,6 @@ vector<long long> readList(int n) {
 int main() {
     int n;
     cin >> n;
-    vector<long long> stones = readList(n);
+    vector<long> stones = readList(n);
     cout << getEnergyForUnion(std::move(stones));
 }
