@@ -29,6 +29,8 @@ add_subdirectory(the-path-in-the-graph)
 add_subdirectory(fleas)
 add_subdirectory(speleologist-way)
 add_subdirectory(metro-2)
+add_subdirectory(card-counter)
+add_subdirectory(status-200)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT metro-2)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT status-200)
