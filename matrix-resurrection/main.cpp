@@ -16,6 +16,7 @@ int calc_dp(int y, int x, int n, int m, vector<vector<int>>& dp, const vector<ve
     if (dp[y][x] > 0) {
         return dp[y][x];
     }
+    dp[y][x] = 1;
     for (int dy = -1; dy < 2; ++dy) {
         for (int dx = -1; dx < 2; ++dx) {
             if (abs(dx) + abs(dy) != 1) {
@@ -33,23 +34,15 @@ int calc_dp(int y, int x, int n, int m, vector<vector<int>>& dp, const vector<ve
             }
         }
     }
-    if (dp[y][x] == 0) {
-        dp[y][x] = 1;
-    }
     return dp[y][x];
 }
 
 int getLongestIncreasingPath(int n, int m, const vector<vector<int>>& matrixs) {
     vector<vector<int>> dp(n, vector<int>(m));
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            calc_dp(i, j, n, m, dp, matrixs);
-        }
-    }
     int res = 0;
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
-            res = std::max(res, dp[i][j]);
+            res = std::max(res, calc_dp(i, j, n, m, dp, matrixs));
         }
     }
     return res;
