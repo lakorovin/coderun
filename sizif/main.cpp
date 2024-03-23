@@ -11,9 +11,7 @@ long getEnergyForUnion(vector<long> stones) {
     if (stones.size() < 1) {
         return 0;
     }
-    // std::priority_queue<long> minq2(std::greater<long>(), std::move(stones));
-    std::priority_queue<long, std::vector<long>, std::greater<long>>
-        minq2(stones.begin(), stones.end());
+    std::priority_queue<long, std::vector<long>, std::greater<long>> minq2{ std::greater<long>(), std::move(stones) };
     long work = 0;
     while (minq2.size() > 1) {
         long l1 = minq2.top();
