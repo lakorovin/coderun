@@ -39,6 +39,7 @@ add_subdirectory(sizif)
 add_subdirectory(max-xor)
 add_subdirectory(queens)
 add_subdirectory(historical-array)
+add_subdirectory(one-line)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT historical-array)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT one-line)
