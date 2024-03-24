@@ -30,15 +30,6 @@ struct HistoricalArray {
     void set1(int index, int value) {
         curr_era[index] = value;
         index_map[index].insert((int)data.size());
-        /*auto it = curr_era.find(index);
-        if (it != curr_era.end()) {
-            it->second = value;
-            index_map[index].insert(curr_era_ind);
-        }
-        else if (value != 0) {
-            curr_era[index] = value;
-            index_map[index].insert(curr_era_ind);
-        }*/
     }
 
     int get(int index, int eraId) const {
@@ -47,9 +38,7 @@ struct HistoricalArray {
             return 0;
         }
         const auto& s = index_it->second;
-        if (s.empty()) {
-            return 0;
-        }
+        assert(!s.empty());
         int era_ind = era_to_ind.at(eraId);
 
         auto era_it = s.upper_bound(era_ind);
