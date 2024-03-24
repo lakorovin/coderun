@@ -37,6 +37,7 @@ add_subdirectory(good-string)
 add_subdirectory(tree-path)
 add_subdirectory(sizif)
 add_subdirectory(max-xor)
+add_subdirectory(queens)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT max-xor)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT queens)
