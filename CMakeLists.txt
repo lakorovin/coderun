@@ -43,6 +43,7 @@ add_subdirectory(one-line)
 add_subdirectory(monopoly)
 add_subdirectory(segments)
 add_subdirectory(regex)
+add_subdirectory(game-divider)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT regex)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT game-divider)
