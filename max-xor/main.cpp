@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <unordered_set>
 
 using namespace std;
 
@@ -67,7 +68,7 @@ public:
 };
 
 
-int getMaxXOR(vector<int> list) {
+int getMaxXOR2(vector<int> list) {
     if (list.empty()) {
         return 0;
     }
@@ -79,6 +80,29 @@ int getMaxXOR(vector<int> list) {
         maxXor = max(maxXor, currXor);
     }
     return maxXor;
+}
+
+int getMaxXOR(vector<int> nums) {
+    int result = 0, mask = 0;
+    for (int i = 31; i >= 0; i--) {
+        //The mask will grow like  100..000 , 110..000, 111..000,  then 1111...111
+        //for each iteration, we only care about the left parts
+        mask = mask | (1 << i);
+        unordered_set <int> s;
+        for (int num : nums) {
+            s.insert(num & mask);
+        }
+        int temp = result | (1 << i);
+        // if a ^ b = c, then a ^ c = b;, we see if greedy result is possible
+        for (int prefix : s) {
+            if (s.count(temp ^ prefix)) {
+                result = temp;
+                break;
+            }
+        }
+
+    }
+    return result;
 }
 
 vector<int> readList() {
