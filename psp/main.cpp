@@ -40,7 +40,7 @@ void generate_rec(string& cur, int openR, int openS, int n, vector<string>& res)
         cur.pop_back();        
     }
     
-    if (openR > 0) {
+    if (openR > 0 && openS == 0) {
         cur.push_back(')');
         generate_rec(cur, openR - 1, openS, n - 1, res);
         cur.pop_back();        
