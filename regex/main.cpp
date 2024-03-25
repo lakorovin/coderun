@@ -55,7 +55,7 @@ string normalizeTemplate(string templateString) {
     return tm;
 }
 
-bool rec_check(const string& stringToCheck, string& templateString, int sind, int tind) {
+bool rec_check(const string& stringToCheck, string& templateString, int sind, int tind, vector<vector<int>>& cache) {
     if (sind >= stringToCheck.size() && tind >= templateString.size()) {
         return true;
     }
@@ -66,28 +66,35 @@ bool rec_check(const string& stringToCheck, string& templateString, int sind, in
         return false;
     }
     if (tind + 1 == templateString.size() && templateString[tind] == '*') {
+        cache[sind][tind] = 1;
         return true;
     }
     if (tind >= templateString.size()) {
         return false;
     }
+    if (cache[sind][tind] > -1) {
+        return cache[sind][tind] == 1;
+    }
     char curT = templateString[tind];
     if (curT == '?') {
-        return rec_check(stringToCheck, templateString, sind + 1, tind + 1);
+        return rec_check(stringToCheck, templateString, sind + 1, tind + 1, cache);
     } else if (curT == '*') {
         for (int i = 0; i + sind < stringToCheck.size(); ++i) {
-            bool maybe = rec_check(stringToCheck, templateString, sind + i, tind + 1);
+            bool maybe = rec_check(stringToCheck, templateString, sind + i, tind + 1, cache);
             if (maybe) {
+                cache[sind][tind] = 1;
                 return true;
             }
         }
+        cache[sind][tind] = 0;
         return false;
     }
     else {
         if (curT != stringToCheck[sind]) {
+            cache[sind][tind] = 0;
             return false;
         }
-        return rec_check(stringToCheck, templateString, sind + 1, tind + 1);
+        return rec_check(stringToCheck, templateString, sind + 1, tind + 1, cache);
     }
 }
 
@@ -96,8 +103,8 @@ bool stringMatchesTemplate(string stringToCheck, string templateString) {
     if (tm.size() > stringToCheck.size() * 2) {
         return false;
     }
-    // your code goes here
-    return rec_check(stringToCheck, tm, 0, 0);
+    vector<vector<int>> cache(stringToCheck.size(), vector<int>(tm.size(), -1));
+    return rec_check(stringToCheck, tm, 0, 0, cache);
 }
 
 
