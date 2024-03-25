@@ -14,7 +14,7 @@ struct Vertex {
     }
 };
 
-void fill_levels(vector<vector<int>>& levels, const vector<Vertex>& tree, int node, int level, unordered_set<int>& res) {
+void fill_levels(vector<int>& right, const vector<Vertex>& tree, int node, int level, unordered_set<int>& res) {
     if (node == -1) {
         return;
     }
@@ -22,24 +22,25 @@ void fill_levels(vector<vector<int>>& levels, const vector<Vertex>& tree, int no
     if (v.left == -1 && v.right == -1) {
         res.insert(node);
     }
-    if (levels.size() == level) {
-        levels.push_back({ node });
+    if (right.size() == level) {
+        res.insert(node);
+        right.push_back(node);
     }
     else {
-        levels[level].push_back(node);
+        right[level] = node;
     }
 
-    fill_levels(levels, tree, v.left, level + 1, res);
-    fill_levels(levels, tree, v.right, level + 1, res);
+    fill_levels(right, tree, v.left, level + 1, res);
+    fill_levels(right, tree, v.right, level + 1, res);
 }
 
 unordered_set<int> getTreeBorder(vector<Vertex> tree, int root) {
-    vector<vector<int>> levels;
+    vector<int> right;
     unordered_set<int> res;
-    fill_levels(levels, tree, root, 0, res);
-    for (const auto& level : levels) {
-        res.insert(level.front());
-        res.insert(level.back());
+    fill_levels(right, tree, root, 0, res);
+    for (const auto& r : right) {
+        // res.insert(level.front());
+        res.insert(r);
     }
     return res;
 }
