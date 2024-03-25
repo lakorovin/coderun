@@ -45,6 +45,7 @@ add_subdirectory(segments)
 add_subdirectory(regex)
 add_subdirectory(game-divider)
 add_subdirectory(ipv4-ipv6)
+add_subdirectory(tree-border)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ipv4-ipv6)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT tree-border)
