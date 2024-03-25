@@ -41,6 +41,7 @@ add_subdirectory(queens)
 add_subdirectory(historical-array)
 add_subdirectory(one-line)
 add_subdirectory(monopoly)
+add_subdirectory(segments)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT monopoly)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT segments)
