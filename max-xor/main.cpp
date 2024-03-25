@@ -1,37 +1,90 @@
+// https://contest.yandex.ru/contest/36783/problems/T/
+
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
+class Node {
+public:
+    unique_ptr<Node> left;
+    unique_ptr<Node> right;
+};
 
-long long getMaxXOR(vector<long long> list) {
+class BitwiseTrie {
+    unique_ptr<Node> root;
+public:
+    BitwiseTrie() : root(new Node()){
+    }
+
+    void insert(int n) {
+        Node* temp = root.get();
+        for (int i = 31; i >= 0; i--) {
+            int bit = (n >> i) & 1;
+            if (bit == 0) {
+                if (!temp->left) {
+                    temp->left = make_unique<Node>();
+                }
+                temp = temp->left.get();
+            }
+            else {
+                if (!temp->right) {
+                    temp->right = make_unique<Node>();
+                }
+                temp = temp->right.get();
+            }
+        }
+    }
+
+    int getMaxXOR(int value) const {
+        int currAns = 0;
+        Node* temp = root.get();
+
+        for (int i = 31; i >= 0; i--) {
+            int bit = (value >> i) & 1;
+            if (bit == 0) {
+                if (temp->right) {
+                    temp = temp->right.get();
+                    currAns += (1 << i);
+                }
+                else {
+                    temp = temp->left.get();
+                }
+            }
+            else {
+                if (temp->left) {
+                    temp = temp->left.get();
+                    currAns += (1 << i);
+                }
+                else {
+                    temp = temp->right.get();
+                }
+            }
+        }
+        return currAns;
+    }
+};
+
+
+int getMaxXOR(vector<int> list) {
     if (list.empty()) {
         return 0;
     }
-    std::sort(list.begin(), list.end());
-    int left = 0;
-    int right = (int)list.size() - 1;
-    long long res = list[left] ^ list[right];
-    while (left + 1 < right) {
-        long long cand = list[right - 1];
-        if ((cand ^ list[left]) > res) {
-            res = cand ^ list[left];
-            --right;
-        }
-        else {
-            ++left;
-            long long cand2 = list[right] ^ list[left];
-            res = std::max(res, cand2);
-        }
+    BitwiseTrie t;
+    int maxXor = 0;
+    for (int v : list) {
+        t.insert(v);
+        int currXor = t.getMaxXOR(v);
+        maxXor = max(maxXor, currXor);
     }
-    return res;
+    return maxXor;
 }
 
-vector<long long> readList() {
+vector<int> readList() {
     int n;
     cin >> n;
-    vector<long long> res(n);
+    vector<int> res(n);
     for (int i = 0; i < n; i++) {
         cin >> res[i];
     }
@@ -39,6 +92,6 @@ vector<long long> readList() {
 }
 
 int main() {
-    vector<long long> list = readList();
+    vector<int> list = readList();
     cout << getMaxXOR(std::move(list));
 }
