@@ -1,6 +1,7 @@
 // https://contest.yandex.ru/contest/36783/problems/L/
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -38,25 +39,13 @@ vector<Segment> getIntersection(const vector<Segment>& firstSequence, const vect
             ++it2;
             continue;
         }
-        if (it->left <= it2->left) {
-            if (it->right < it2->right) {
-                res.emplace_back(it2->left, it->right);
-                ++it;
-            }
-            else {
-                res.emplace_back(it2->left, it2->right);
-                ++it2;
-            }
+        if (it->right < it2->right) {
+            res.emplace_back(std::max(it2->left, it->left), it->right);
+            ++it;
         }
         else {
-            if (it->right < it2->right) {
-                res.emplace_back(it->left, it->right);
-                ++it;
-            }
-            else {
-                res.emplace_back(it->left, it2->right);
-                ++it2;
-            }
+            res.emplace_back(std::max(it2->left, it->left), it2->right);
+            ++it2;
         }
     }
     return res;
