@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
@@ -13,13 +14,37 @@ struct Vertex {
     }
 };
 
+void fill_levels(vector<vector<int>>& levels, const vector<Vertex>& tree, int node, int level, unordered_set<int>& res) {
+    if (node == -1) {
+        return;
+    }
+    const Vertex& v = tree[node];
+    if (v.left == -1 && v.right == -1) {
+        res.insert(node);
+    }
+    if (levels.size() == level) {
+        levels.push_back({ node });
+    }
+    else {
+        levels[level].push_back(node);
+    }
 
-vector<int> getTreeBorder(const vector<Vertex>& tree, int root) {
-    // your code goes here
-    return {};
+    fill_levels(levels, tree, v.left, level + 1, res);
+    fill_levels(levels, tree, v.right, level + 1, res);
 }
 
-void outputAnswer(const vector<int>& treeBorder) {
+unordered_set<int> getTreeBorder(vector<Vertex> tree, int root) {
+    vector<vector<int>> levels;
+    unordered_set<int> res;
+    fill_levels(levels, tree, root, 0, res);
+    for (const auto& level : levels) {
+        res.insert(level.front());
+        res.insert(level.back());
+    }
+    return res;
+}
+
+void outputAnswer(const unordered_set<int>& treeBorder) {
     for (int elem : treeBorder) {
         cout << elem << " ";
     }
@@ -31,7 +56,7 @@ vector<Vertex> readTree(int n) {
     for (int i = 0; i < n; i++) {
         int left, right;
         cin >> left >> right;
-        tree.push_back(Vertex(left, right));
+        tree.emplace_back(left, right);
     }
     return tree;
 }
@@ -42,5 +67,5 @@ int main() {
     int root;
     cin >> root;
     vector<Vertex> tree = readTree(n);
-    outputAnswer(getTreeBorder(tree, root));
+    outputAnswer(getTreeBorder(std::move(tree), root));
 }
