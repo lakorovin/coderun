@@ -26,8 +26,40 @@ vector<Segment> readSegments() {
 }
 
 vector<Segment> getIntersection(const vector<Segment>& firstSequence, const vector<Segment>& secondSequence) {
-    // your code goes here
-    return {};
+    vector<Segment> res;
+    auto it = firstSequence.cbegin();
+    auto it2 = secondSequence.cbegin();
+    while (it != firstSequence.cend() && it2 != secondSequence.cend()) {
+        if (it->right < it2->left) {
+            ++it;
+            continue;
+        }
+        if (it->left > it2->right) {
+            ++it2;
+            continue;
+        }
+        if (it->left <= it2->left) {
+            if (it->right < it2->right) {
+                res.emplace_back(it2->left, it->right);
+                ++it;
+            }
+            else {
+                res.emplace_back(it2->left, it2->right);
+                ++it2;
+            }
+        }
+        else {
+            if (it->right < it2->right) {
+                res.emplace_back(it->left, it->right);
+                ++it;
+            }
+            else {
+                res.emplace_back(it->left, it2->right);
+                ++it2;
+            }
+        }
+    }
+    return res;
 }
 
 
