@@ -33,12 +33,14 @@ bool is_ip4(const string& ip) {
             state = DOT;
             curD = 0;
         }
-        if (c <= '9' && c >= '0') {
+        else if (c <= '9' && c >= '0') {
+            if (state == LEADING_ZEROES) {
+                return false;
+            }
             if (c == '0') {
-                if (state == LEADING_ZEROES) {
-                    return false;
+                if (state == DOT) {
+                    state = LEADING_ZEROES;
                 }
-                state = LEADING_ZEROES;
             }
             else {
                 state = INT_PARSE;
@@ -77,7 +79,7 @@ bool is_ip6(const string& ip) {
             state = SEMICOLON;
             curlen = 0;
         }
-        if ((c <= '9' && c >= '0') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
+        else if ((c <= '9' && c >= '0') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
             state = INT_PARSE;
             ++curlen;
             if (curlen > 4) {
