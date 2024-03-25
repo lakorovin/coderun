@@ -44,6 +44,7 @@ add_subdirectory(monopoly)
 add_subdirectory(segments)
 add_subdirectory(regex)
 add_subdirectory(game-divider)
+add_subdirectory(ipv4-ipv6)
 
 
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT game-divider)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ipv4-ipv6)
