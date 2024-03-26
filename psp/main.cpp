@@ -16,13 +16,11 @@ void outputAnswer(const vector<string>& sequences) {
 void generate_rec(string& cur, int openR, int openS, int n, vector<string>& res) {
     assert(openR >= 0);
     assert(openS >= 0);
-    if (n <= 0) {
-        if (openR == 0 && openS == 0) {
-            res.push_back(cur);
-        }
+    if (openR + openS > n) {
         return;
     }
-    if (openR + openS > n) {
+    if (n == 0) {
+        res.push_back(cur);
         return;
     }
     if (openS == 0) {
