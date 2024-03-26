@@ -8,16 +8,16 @@
 using namespace std;
 
 
-long long getCardCount(int n, int k, const vector<long long> &cards) {
+int getCardCount(int n, int k, vector<int> cards) {
     assert(k <= n);
     assert(n == (int)cards.size());
-    long long  sum = 0;
-    
-    for (size_t j = n-k; j < n; ++j) {
+    int sum = 0;
+
+    for (size_t j = n - k; j < n; ++j) {
         sum += cards[j];
     }
-    long long res = sum;
-    int right = n-k;
+    int res = sum;
+    int right = n - k;
     int left = 0;
     for (int i = 0; i < k; ++i) {
         sum -= cards[right];
@@ -35,8 +35,8 @@ int readInt() {
     return x;
 }
 
-vector<long long> readList(int n) {
-    vector<long long> res(n);
+vector<int> readList(int n) {
+    vector<int> res(n);
     for (int i = 0; i < n; i++) {
         cin >> res[i];
     }
@@ -46,6 +46,6 @@ vector<long long> readList(int n) {
 int main() {
     int n = readInt();
     int k = readInt();
-    vector<long long> cards = readList(n);
-    cout << getCardCount(n, k, cards);
+    vector<int> cards = readList(n);
+    cout << getCardCount(n, k, std::move(cards));
 }

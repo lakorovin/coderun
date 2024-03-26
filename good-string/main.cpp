@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stack>
 #include <algorithm>
+#include <cctype>
 
 using namespace std;
 
