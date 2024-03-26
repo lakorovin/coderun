@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <vector>
 #include <map>
-#include <cassert>
 #include <set>
 
 using namespace std;
@@ -23,21 +22,18 @@ long long getMaxFinalCapital(vector<Building> buildings, int startCapital, int m
     long long res = startCapital;
     std::sort(buildings.begin(), buildings.end(), 
         [](const auto& a, const auto& b) { return std::tie(b.addedCapital, a.needCapital) < std::tie(a.addedCapital, b.needCapital); });
-    int cur = 0;
-    vector<int> visited(buildings.size(), 0);
     map<long long, int> cost_to_index;
     set<int> unseen;
+    int cur = 0;
     int pure_unseen = 0;
     while(cur < (int)buildings.size()) {
+        if (cur == pure_unseen) {
+            ++pure_unseen;
+        }
         const Building& b = buildings[cur];
         if (b.needCapital <= res) {
-            assert(visited[cur] == 0);
-            visited[cur] = 1;
             --maxNumberOfBuildings;
             res += b.addedCapital;
-            if (cur == pure_unseen) {
-                ++pure_unseen;
-            }
             if (maxNumberOfBuildings == 0) {
                 break;
             }
@@ -69,9 +65,6 @@ long long getMaxFinalCapital(vector<Building> buildings, int startCapital, int m
             }
             else {
                 unseen.insert(cur);
-            }
-            if (cur == pure_unseen) {
-                ++pure_unseen;
             }
             cur = pure_unseen;
         }
