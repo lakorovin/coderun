@@ -47,7 +47,7 @@ void generate_rec(string& cur, int openR, int openS, int n, vector<string>& res)
 
 vector<string> generateSequences(int n) {
     vector<string> res;
-    if (n%2 == 1) {
+    if (n < 2 || n%2 == 1) {
         return res;
     }
     string tmp;
