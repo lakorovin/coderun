@@ -47,6 +47,7 @@ add_subdirectory(game-divider)
 add_subdirectory(ipv4-ipv6)
 add_subdirectory(tree-border)
 add_subdirectory(psp)
+add_subdirectory(contest-8458)
 
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT psp)

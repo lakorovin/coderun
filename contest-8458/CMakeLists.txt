@@ -17,7 +17,7 @@ add_subdirectory(B)
 add_subdirectory(C)
 add_subdirectory(D)
 add_subdirectory(E)
-add_subdirectory(F)
+add_subdirectory(G)
 
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT A)

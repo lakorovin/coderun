@@ -1,51 +1,37 @@
-// https://contest.yandex.ru/contest/36783/problems/B/
+// https://contest.yandex.ru/contest/8458/problems/E/
 
 #include <iostream>
 #include <vector>
 #include <cassert>
 #include <algorithm>
 
-using namespace std;
-
-
-int getCardCount(int n, int k, vector<int> cards) {
-    assert(k <= n);
-    assert(n == (int)cards.size());
-    int sum = 0;
-
-    for (size_t j = n - k; j < n; ++j) {
-        sum += cards[j];
-    }
-    int res = sum;
-    int right = n - k;
-    int left = 0;
-    for (int i = 0; i < k; ++i) {
-        sum -= cards[right];
-        sum += cards[left];
-        res = std::max(res, sum);
-        ++left;
-        ++right;
+std::vector<int> str_to_vec(const std::string& s) {
+    std::vector<int> res(26);
+    for (unsigned char c : s) {
+        ++res[c - 'a'];
     }
     return res;
 }
 
-int readInt() {
-    int x;
-    cin >> x;
-    return x;
-}
-
-vector<int> readList(int n) {
-    vector<int> res(n);
-    for (int i = 0; i < n; i++) {
-        cin >> res[i];
+bool is_equal(const std::vector<int>& a, const std::vector<int>& b) {
+    assert(a.size() == 26);
+    assert(b.size() == 26);
+    for (int i = 0; i < 26; ++i) {
+        if (a[i] != b[i]) {
+            return false;
+        }
     }
-    return res;
+    return true;
 }
 
 int main() {
-    int n = readInt();
-    int k = readInt();
-    vector<int> cards = readList(n);
-    cout << getCardCount(n, k, std::move(cards));
+    std::string s1, s2;
+    std::cin >> s1;
+    std::cin >> s2;
+    if (is_equal(str_to_vec(s1), str_to_vec(s2))) {
+        std::cout << 1 << std::endl;
+    }
+    else {
+        std::cout << 0 << std::endl;
+    }
 }
