@@ -1,51 +1,57 @@
-// https://contest.yandex.ru/contest/36783/problems/B/
+// https://contest.yandex.ru/contest/8458/problems/D/
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include <cassert>
-#include <algorithm>
 
-using namespace std;
-
-
-int getCardCount(int n, int k, vector<int> cards) {
-    assert(k <= n);
-    assert(n == (int)cards.size());
-    int sum = 0;
-
-    for (size_t j = n - k; j < n; ++j) {
-        sum += cards[j];
-    }
-    int res = sum;
-    int right = n - k;
-    int left = 0;
-    for (int i = 0; i < k; ++i) {
-        sum -= cards[right];
-        sum += cards[left];
-        res = std::max(res, sum);
-        ++left;
-        ++right;
-    }
-    return res;
-}
+// using namespace std;
 
 int readInt() {
     int x;
-    cin >> x;
+    std::cin >> x;
     return x;
 }
 
-vector<int> readList(int n) {
-    vector<int> res(n);
-    for (int i = 0; i < n; i++) {
-        cin >> res[i];
+void outputAnswer(const std::vector<std::string>& sequences) {
+    for (const std::string& sequence : sequences) {
+        std::cout << sequence << std::endl;
     }
+}
+
+void generate_rec(std::string& cur, int openR, int n, std::vector<std::string>& res) {
+    assert(openR >= 0);
+    if (openR > n) {
+        return;
+    }
+    if (n == 0) {
+        res.push_back(cur);
+        return;
+    }
+    {
+        cur.push_back('(');
+        generate_rec(cur, openR + 1, n - 1, res);
+        cur.pop_back();
+    }
+
+    if (openR > 0) {
+        cur.push_back(')');
+        generate_rec(cur, openR - 1, n - 1, res);
+        cur.pop_back();
+    }
+}
+
+std::vector<std::string> generateSequences(int n) {
+    std::vector<std::string> res;
+    if (n == 0) {
+        return res;
+    }
+    std::string tmp;
+    tmp.reserve(2 * n);
+    generate_rec(tmp, 0, 2 * n, res);
     return res;
 }
 
 int main() {
-    int n = readInt();
-    int k = readInt();
-    vector<int> cards = readList(n);
-    cout << getCardCount(n, k, std::move(cards));
+    outputAnswer(generateSequences(readInt()));
 }
