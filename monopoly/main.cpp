@@ -21,7 +21,7 @@ struct Building {
 
 long long getMaxFinalCapital(vector<Building> buildings, int startCapital, int maxNumberOfBuildings) {
     long long res = startCapital;
-    std::sort(buildings.begin(), buildings.end(), 
+    std::sort(buildings.begin(), buildings.end(),
         [](const auto& a, const auto& b) { return std::tie(b.addedCapital, a.needCapital) < std::tie(a.addedCapital, b.needCapital); });
     map<long long, int> cost_to_index;
     set<int> unseen;
@@ -63,11 +63,18 @@ long long getMaxFinalCapital(vector<Building> buildings, int startCapital, int m
             if (cost_to_index.empty() || cost_to_index.cbegin()->first > b.needCapital) {
                 unseen.erase(cur);
                 cost_to_index[b.needCapital] = cur;
+                if (unseen.empty() || !cost_to_index.empty()) {
+                    cur = pure_unseen;
+                }
+                else {
+                    cur = *unseen.cbegin();
+                }
             }
             else {
                 unseen.insert(cur);
+                cur = pure_unseen;
             }
-            cur = pure_unseen;
+
         }
     }
     return res;
