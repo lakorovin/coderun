@@ -1,19 +1,12 @@
 // https://contest.yandex.ru/contest/36783/problems/C/
 
 #include <iostream>
-#include <vector>
-#include <cassert>
-#include <algorithm>
-
-using namespace std;
-
 
 int readInt() {
     int x;
-    cin >> x;
+    std::cin >> x;
     return x;
 }
-
 
 int main() {
     int n = readInt();

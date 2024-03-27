@@ -2,19 +2,14 @@
 
 #include <iostream>
 #include <vector>
-#include <cassert>
 #include <algorithm>
 
-using namespace std;
-
-
-size_t getCardCount(int n, vector<int> cards) {
-    assert(n == (int)cards.size());
+size_t maxLen(std::vector<int> arr, int to_find) {
     size_t res = 0;
     size_t cur = 0;
     
-    for (int c : cards) {
-        if (c == 1) {
+    for (int c : arr) {
+        if (c == to_find) {
             ++cur;
         }
         else {
@@ -27,20 +22,20 @@ size_t getCardCount(int n, vector<int> cards) {
 
 int readInt() {
     int x;
-    cin >> x;
+    std::cin >> x;
     return x;
 }
 
-vector<int> readList(int n) {
-    vector<int> res(n);
+std::vector<int> readList(int n) {
+    std::vector<int> res(n);
     for (int i = 0; i < n; i++) {
-        cin >> res[i];
+        std::cin >> res[i];
     }
     return res;
 }
 
 int main() {
     int n = readInt();
-    vector<int> cards = readList(n);
-    cout << getCardCount(n, std::move(cards));
+    std::vector<int> arr = readList(n);
+    std::cout << maxLen(std::move(arr), 1) << std::endl;
 }
