@@ -10,12 +10,11 @@ size_t maxLen(std::vector<int> arr, int to_find) {
     
     for (int c : arr) {
         if (c == to_find) {
-            ++cur;
+            res = std::max(res, ++cur);
         }
         else {
             cur = 0;
         }
-        res = std::max(res, cur);
     }
     return res;
 }
@@ -38,4 +37,5 @@ int main() {
     int n = readInt();
     std::vector<int> arr = readList(n);
     std::cout << maxLen(std::move(arr), 1) << std::endl;
+    return 0;
 }

@@ -54,4 +54,5 @@ std::vector<std::string> generateSequences(int n) {
 
 int main() {
     outputAnswer(generateSequences(readInt()));
+    return 0;
 }
