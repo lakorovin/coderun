@@ -2,31 +2,23 @@
 
 #include <iostream>
 #include <stack>
-#include <algorithm>
 #include <cctype>
 #include <string>
 
-using namespace std;
-
-
-string convertToGoodString(const string& probablyBadString) {
-    std::stack<char> st;
-    for (char c : probablyBadString) {
-        if (st.empty()) {
-            st.push(c);
-        }
-        else {
-            char sCh = st.top();
-            if (sCh != c && tolower(sCh) == tolower(c)) {
+std::string convertToGoodString(std::string probablyBadString) {
+    std::stack<unsigned char> st;
+    for (unsigned char c : probablyBadString) {
+        if (!st.empty()) {
+            unsigned char sCh = st.top();
+            if (sCh != c && std::tolower(sCh) == std::tolower(c)) {
                 st.pop();
-            }
-            else {
-                st.push(c);
-            }
+            	continue;
+            }            
         }
+    	st.push(c);
     }
     size_t size = st.size();
-    string s(size, ' ');
+    std::string s(size, ' ');
     while (!st.empty()) {
         s[--size] = st.top();
         st.pop();
@@ -35,7 +27,8 @@ string convertToGoodString(const string& probablyBadString) {
 }
 
 int main() {
-    string probablyBadString;
-    cin >> probablyBadString;
-    cout << convertToGoodString(probablyBadString);
+    std::string probablyBadString;
+    std::cin >> probablyBadString;
+    std::cout << convertToGoodString(std::move(probablyBadString)) << std::endl;
+    return 0;
 }
