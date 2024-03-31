@@ -13,12 +13,6 @@ struct Building {
     }
 };
 
-int readInt() {
-    int x;
-    std::cin >> x;
-    return x;
-}
-
 typedef std::priority_queue<Building, std::vector<Building>, bool (*)(const Building&, const Building&)> buildings_queue;
 
 long long getMaxFinalCapital(std::vector<Building> buildings, int startCapital, int maxNumberOfBuildings) {
@@ -49,12 +43,19 @@ long long getMaxFinalCapital(std::vector<Building> buildings, int startCapital, 
 
 std::vector<Building> readBuildings(int n) {
     std::vector<Building> buildings;
+    buildings.reserve(n);
     for (int i = 0; i < n; i++) {
         int c, p;
         std::cin >> c >> p;
         buildings.emplace_back(c, p);
     }
     return buildings;
+}
+
+int readInt() {
+    int x;
+    std::cin >> x;
+    return x;
 }
 
 int main() {
