@@ -19,18 +19,17 @@ int readInt() {
     return x;
 }
 
+typedef std::priority_queue<Building, std::vector<Building>, bool (*)(const Building&, const Building&)> buildings_queue;
 
 long long getMaxFinalCapital(std::vector<Building> buildings, int startCapital, int maxNumberOfBuildings) {
     long long res = startCapital;
-    auto cmpNeed = [](const Building& a, const Building& b) {
-        return a.needCapital > b.needCapital;
-        };
 
-    auto cmpAdd = [](const Building& a, const Building& b) {
+    buildings_queue tr([](const Building& a, const Building& b) {
+        return a.needCapital > b.needCapital;
+        }, std::move(buildings));
+    buildings_queue best([](const Building& a, const Building& b) {
         return a.addedCapital < b.addedCapital;
-        };
-    std::priority_queue<Building, std::vector<Building>, decltype(cmpNeed)> tr(cmpNeed, std::move(buildings));
-    std::priority_queue<Building, std::vector<Building>, decltype(cmpAdd)> best(cmpAdd, std::vector<Building>());
+        }, std::vector<Building>());
 
     while (maxNumberOfBuildings > 0) {
         while (!tr.empty() && tr.top().needCapital <= res) {
